@@ -1,0 +1,53 @@
+{
+  "organizer": [
+    {
+      "list": [
+        {"title": "證交所", "image": "/images/organizers/logo_04.png", "href": "https://www.twse.com.tw/anti-fraud/zh/index.html"},
+        {"title": "櫃買中心", "image": "/images/organizers/logo_03.png", "href": "https://antifraud.tpex.org.tw/"},
+        {"title": "期交所", "image": "/images/organizers/logo_01.png", "href": "https://www.taifex.com.tw/file/taifex/event/cht/anti_fraud/index.html"},
+        {"title": "集保所", "image": "/images/organizers/logo_02.png", "href": "https://www.tdcc.com.tw/portal/zh/"},
+        
+        {"title": "投信投顧公會", "image": "/images/organizers/logo_09.png", "href": "https://www.sitca.org.tw/ROC/anti_fraud/af_index.html"},
+        {"title": "中華民國信託業商業同業公會", "image": "/images/organizers/logo_06.png", "href": "https://www.trust.org.tw/"},
+        {"title": "期貨商業同業公會", "image": "/images/organizers/logo_10.png", "href": "https://www.futures.org.tw/antiFraud/list"},
+        {"title": "中華民國人壽保險商業同業公會", "image": "/images/organizers/logo_05.png", "href": "https://www.lia-roc.org.tw/"},
+        {"title": "中華民國銀行商業同業公會全國聯合會", "image": "/images/organizers/logo_07.png", "href": "https://www.ba.org.tw/PublicInformation/Publicinfopage?type=FraudPrevention"},
+        {"title": "中華民國證券商業同業公會", "image": "/images/organizers/logo_08.png", "href": "https://info.csa.org.tw/"},
+        
+        {"title": "中國信託金控", "image": "/images/organizers/logo_31.png", "href": "https://www.ctbcholding.com/content/twhoo/zh_tw/index.html"},
+        {"title": "中國信託銀行", "image": "/images/organizers/logo_20.png", "href": "https://www.ctbcbank.com/twrbo/zh_tw/esg_index/esg_anti-fraud/fraud_prevention.html"},
+        {"title": "元大金控", "image": "/images/organizers/logo_33.png", "href": "https://www.yuanta.com/TW/Anti-Fraud"},
+        {"title": "台新金控", "image": "/images/organizers/logo_34.png", "href": "https://www.taishinholdings.com.tw/tsh/"},
+        {"title": "保發中心", "image": "/images/organizers/logo_37.png", "href": "https://www.tii.org.tw/tii/"},
+        {"title": "玉山金控", "image": "/images/organizers/logo_35.png", "href": "https://www.esunfhc.com/zh-tw"},
+        {"title": "永豐金控｜永豐銀行", "image": "/images/organizers/logo_14.png", "href": "https://securities.sinopac.com/sustainableFinance/20231031133558684000000000000109.html", "className": "w-full sm:w-2/3 lg:w-1/2 p-2 sm:p-4 px-4 sm:px-8", "contentClass": "relative block pb-[17%]"},
+        {"title": "國泰金控", "image": "/images/organizers/logo_15.png", "href": "https://www.cathaybk.com.tw/cathaybk/personal/digital-service/security/fraud-prevention/"},
+        {"title": "國票金融控股公司", "image": "/images/organizers/logo_16.png", "href": "https://www.ibfs.com.tw/antiFraud/Default.aspx"},
+        {"title": "富邦金控", "image": "/images/organizers/logo_17.png", "href": "https://www.fubon.com/financialholdings/anti-fraud/antifraud_1230106_971978.html"},
+        {"title": "凱基金控", "image": "/images/organizers/logo_36.png", "href": "https://www.kgi.com/zh-tw/"},
+        {"title": "新光金控", "image": "/images/organizers/logo_18.png", "href": "https://www.skfh.com.tw/"},
+        
+        {"title": "兆豐銀行", "image": "/images/organizers/logo_12.png", "href": "https://www.megabank.com.tw/personal"},
+        {"title": "上海商業儲蓄銀行", "image": "/images/organizers/logo_19.png", "href": "https://www.scsb.com.tw/content/news/index-alert.html"},
+        {"title": "元大銀行", "image": "/images/organizers/logo_21.png", "href": "https://www.yuantabank.com.tw/bankwebIMG/event/Bank_Act2024/anti_fraud/"},
+        {"title": "玉山銀行", "image": "/images/organizers/logo_22.png", "href": "https://www.esunbank.com/zh-tw/about/announcement/anti-fraud"},
+        {"title": "台新銀行", "image": "/images/organizers/logo_13.png", "href": "https://www.taishinbank.com.tw/TSB/fair-treatment/anti-fraud/"},
+        {"title": "台中銀行", "image": "/images/organizers/logo_26.png", "href": "https://www.tcbbank.com.tw/Statutory/R_06.html"},
+        {"title": "高雄銀行", "image": "/images/organizers/logo_23.png", "href": "https://www.bok.com.tw/anti-fraud"},
+        {"title": "凱基銀行", "image": "/images/organizers/logo_24.png", "href": "https://www.kgibank.com.tw/zh-tw/"},
+        {"title": "滙豐(台灣)", "image": "/images/organizers/logo_25.png", "href": "https://www.hsbc.com.tw/"},
+
+        {"title": "臺銀人壽", "image": "/images/organizers/logo_11.png", "href": "https://www.twfhclife.com.tw/"},
+        {"title": "元大證券", "image": "/images/organizers/logo_27.png", "href": "https://www.yuanta.com.tw/eyuanta/Securities/Node/Index?MainId=00415&C1=2022082906083098&ID=2022082906083098&Level=1"},
+        {"title": "統一證券", "image": "/images/organizers/logo_28.png", "href": "https://eservices.pscnet.com.tw/dm/Anti-Fraud/index.html"},
+        {"title": "信義房屋", "image": "/images/organizers/logo_29.png", "href": "https://www.sinyi.com.tw/"},
+        {"title": "趨勢科技", "image": "/images/organizers/logo_30.png", "href": "https://helpcenter.trendmicro.com/zh-tw/product-support/trend-micro-scamcheck/"}
+      ]
+    }
+  ],
+  "copyright": [
+    { "type": "p", "content": "內容監製: 今周刊" },
+    { "type": "p", "content": "專題製作: 今周刊 數位內容部" },
+    { "type": "p", "content": "Copyright © 2025 今周刊.All rights reserved. 版權所有，禁止擅自轉貼節錄" }
+  ]
+}

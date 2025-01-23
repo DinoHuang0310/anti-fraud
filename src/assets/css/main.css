@@ -1,0 +1,25 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* color schema */
+:root {
+  --color-primary: #5470c6;
+  --color-secondary: #505050;
+}
+
+html, body {
+  font-family: 'Noto Sans TC', sans-serif, 'Microsoft JhengHei', arial;
+  font-size: 20px;
+  color: #505050;
+  letter-spacing: 0.1rem;
+}
+
+@media screen and (min-width: 768px) {
+  html, body {
+    font-size: 19px;
+  }
+}
