@@ -44,10 +44,5 @@
         {"title": "趨勢科技", "image": "/images/organizers/logo_30.png", "href": "https://helpcenter.trendmicro.com/zh-tw/product-support/trend-micro-scamcheck/"}
       ]
     }
-  ],
-  "copyright": [
-    { "type": "p", "content": "內容監製: 今周刊" },
-    { "type": "p", "content": "專題製作: 今周刊 數位內容部" },
-    { "type": "p", "content": "Copyright © 2025 今周刊.All rights reserved. 版權所有，禁止擅自轉貼節錄" }
   ]
 }
