@@ -53,7 +53,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   }
 
   return {
-    base: isDev ? '/' : '/2025/test/',
+    base: isDev ? '/' : '/2025/anti-fraud/',
     plugins: [
       vue(),
       createHtmlPlugin({

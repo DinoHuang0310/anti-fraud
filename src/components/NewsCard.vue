@@ -1,5 +1,5 @@
 <template>
-  <ContentWrapper class="md:p-7">
+  <div class="content-wrapper md:p-7">
     <div class="sm:flex">
       <div class="sm:w-1/3">
         <img loading="lazy" :src="article.image" :alt="article.title">
@@ -20,12 +20,10 @@
         </div>
       </div>
     </div>
-  </ContentWrapper>
+  </div>
 </template>
 
 <script setup>
-import ContentWrapper from '../components/ContentWrapper.vue'
-
 const props = defineProps({
   article: {
     type: Object,

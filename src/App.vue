@@ -7,17 +7,17 @@
       <BtNavbar :navList="menu" :closeByBackdrop="true" :collapse="true" />
     </header>
 
-    <main class="min-h-[100vh]" :style="{'background-image': `url(${imgUrl})`}">
+    <main class="min-h-[100vh] bg-fixed" :style="{'background-image': `url(${imgUrl})`}">
       <div
         class="pb-[110%] sm:pb-[40%] 2xl:pb-[35%] bg-cover bg-center shadow-inner"
         :style="{'background-image': `url(${setBanner})`}"
       />
-      <RouterView />
+      <RouterView class="leading-7 tracking-wide" />
     </main>
 
     <Organizer v-if="info && info.organizer" :organizer="info.organizer" />
 
-    <BtFooter :copyright="info ? info.copyright : null" :showFloat="true" />
+    <BtFooter :copyright="info?.copyright ? info.copyright : undefined" :showFloat="true" />
   </div>
 </template>
 
@@ -44,3 +44,9 @@ const { info, getInfo, menu } = useInfoData();
 
 getInfo();
 </script>
+
+<style>
+.content-wrapper {
+  @apply bg-white px-3 py-6 md:p-10 mx-auto w-11/12 lg:w-full rounded;
+}
+</style>

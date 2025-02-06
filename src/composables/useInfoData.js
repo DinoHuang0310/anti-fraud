@@ -10,11 +10,6 @@ const menu = ref([
     "isAnchor": true
   },
   {
-    "title": "165打詐儀錶板",
-    "url": "#app",
-    "isAnchor": true
-  },
-  {
     "title": "防詐影片",
     "url": "#media",
     "isAnchor": true
@@ -26,20 +21,22 @@ const menu = ref([
   },
   {
     "title": "防詐大調查",
-    "url": "#antiFraud",
-    "isAnchor": true
+    "url": `${import.meta.env.BASE_URL}#/report`,
   },
   {
     "title": "防詐守門員",
     "url": "#card",
     "isAnchor": true,
-    "className": "hidden"
   },
   {
     "title": "防詐陣線",
     "url": "#corporate-sponsor",
     "isAnchor": true
-  }
+  },
+  {
+    "title": "165打詐儀錶板",
+    "url": "https://165dashboard.tw/",
+  },
 ])
 
 export default () => {
@@ -79,9 +76,11 @@ export default () => {
           }
         } else {
           console.warn('"防詐最前線"暫無文章', response)
+          menu.value = menu.value.filter((i) => i.url != '#slider')
         }
       }).catch((error) => {
         console.error('取得"防詐最前線"錯誤: ', error)
+        menu.value = menu.value.filter((i) => i.url != '#slider')
       })
 
       api.get(`${tagApiBase}%E9%98%B2%E8%A9%90%E5%AE%88%E9%96%80%E5%93%A1`).then((response) => {
@@ -92,9 +91,11 @@ export default () => {
           }
         } else {
           console.warn('"防詐守門員"暫無文章', response)
+          menu.value = menu.value.filter((i) => i.url != '#card')
         }
       }).catch((error) => {
         console.error('取得"防詐守門員"錯誤: ', error)
+        menu.value = menu.value.filter((i) => i.url != '#card')
       })
     }
   }

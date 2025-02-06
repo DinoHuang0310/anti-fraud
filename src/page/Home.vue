@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="showDashboard" id="dashboard" class="container w-11/12 max-w-[1024px] pt-px">
-      <div class="my-20 -mt-14 sm:mb-20">
+      <div class="-mt-14">
         <div class="relative sm:flex pt-6 sm:pt-0 text-center bg-white rounded-lg sm:rounded-2xl shadow-xl">
           <div class="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap tracking-wide 
             border px-3 py-1 shadow rounded-b-lg bg-black/70 text-white text-sm sm:text-base">
@@ -33,8 +33,8 @@
       </div>
     </div>
 
-    <div id="about" class="pt-px">
-      <h1 class="text-2xl lg:text-3xl xl:text-4xl sm:text-center mb-6 mt-12 sm:my-16 xl:leading-snug mx-auto w-11/12 max-w-screen-lg min-h-[1.375em]">
+    <div id="about" class="pt-20">
+      <h1 class="text-2xl lg:text-3xl xl:text-4xl sm:text-center mb-6 sm:my-8 xl:leading-snug mx-auto w-11/12 max-w-screen-lg min-h-[1.375em]">
         2025 防詐新戰略
       </h1>
 
@@ -45,10 +45,10 @@
           <p>身為台灣指標性的財經媒體，今周刊責無旁貸，攜手政府、企業及全民，揭露詐騙真相、提升防詐意識，共築防詐盾牆，守護社會財產安全！</p>
         </Introduction>
 
-        <ContentWrapper id="media" style="background: none; width: 100%;">
+        <div id="media" class="content-wrapper" style="background: none; width: 100%;">
           <Title>防詐影片</Title>
           <BtYouTubePlayer class="rounded sm:rounded-xl overflow-hidden" videoId="GtvD1ljhU5g" />
-        </ContentWrapper>
+        </div>
       </div>
     </div>
 
@@ -65,23 +65,24 @@
     </div>
 
     <article class="container py-20">
-      <ContentWrapper id="antiFraud" class="my-8">
+      <div id="antiFraud" class="content-wrapper my-8">
         <Title>防詐大調查</Title>
         <div class="space-y-4 font-normal">
           <p class="my-8 lg:my-12">《今周刊》與第三方調查機構「山水民意研究股份有限公司」合作，針對民眾分為三大主題進行調查，包含「遇到／遭到詐騙經驗」、「政府打詐滿意度評分」 、「對於防詐的精進作為」三部份，了解民眾現今遭遇到的詐騙情況與防詐政策的了解，尋求反詐具體可行路徑及方法。</p>
           
-          <h3 class="text-lg sm:text-xl text-primary font-bold">投資詐騙橫跨全世代長者逾七成經「電話」接觸</h3>
+          <h3 class="text-xl sm:text-2xl text-primary font-medium">投資詐騙橫跨全世代長者逾七成經「電話」接觸</h3>
           <ChartType1 />
         </div>
 
         <div class="py-4 mt-8 text-center">
           <RouterLink
-            class="inline-block border border-primary text-primary text-lg px-4 py-2 rounded-md
+            class="inline-block relative border border-primary text-primary text-lg px-4 py-2 rounded-md
             @media-hover:hover:bg-primary @media-hover:hover:text-white"
-            to="/charts"
+            to="/report"
+            target="_blank"
           >查看完整調查</RouterLink>
         </div>
-      </ContentWrapper>
+      </div>
     </article>
 
     <div v-if="info.news &&  info.news.content.length" id="card" class="container w-11/12 sm:w-full py-20">
@@ -110,7 +111,6 @@ import Title from '../components/Title.vue';
 import Introduction from '../components/Introduction.vue';
 import ChartType1 from '../components/charts/ChartType1.vue';
 
-import ContentWrapper from '../components/ContentWrapper.vue';
 import BtYouTubePlayer from '../components/BtYouTubePlayer/Player.vue'
 import BtSlider from '../components/BtSlider.vue';
 import BtFooter from '../components/BtFooter.vue';
@@ -163,5 +163,4 @@ const getDashboard = () => {
 }
 
 getDashboard()
-
 </script>

@@ -5,6 +5,7 @@
       :option="chartSetter"
       autoresize
     />
+    <slot />
   </div>
 </template>
 
@@ -14,7 +15,7 @@ import { CanvasRenderer } from "echarts/renderers";
 import { PieChart, BarChart } from "echarts/charts";
 // import "echarts";
 import {
-  // TitleComponent,
+  TitleComponent,
   TooltipComponent,
   // ToolboxComponent,
   LegendComponent,
@@ -30,7 +31,7 @@ use([
   CanvasRenderer,
   PieChart,
   BarChart,
-  // TitleComponent,
+  TitleComponent,
   TooltipComponent,
   // ToolboxComponent,
   LegendComponent,
@@ -53,8 +54,8 @@ const chartSetter = computed(() => {
         axisPointer: { type: 'shadow' },
         confine: true,
         formatter: (par) => {
-          const { name, value } = par[0];
-          return `<div class="block text-sm tracking-normal break-all whitespace-pre-wrap mb-2">${name.replace(/\n/g, '')}</div><strong class="text-base text-primary">${value}%</strong>`
+          const { name, value, color } = par[0];
+          return `<p class="text-sm tracking-normal break-all whitespace-pre-wrap mb-2">${name.replace(/\n/g, '')}</p><strong class="text-base" style="color: ${color}">${value}%</strong>`
         }
       },
       grid: { left: (isMobile.value ? 100 : 150), top: 0, right: 0, bottom: 0 },
@@ -67,7 +68,7 @@ const chartSetter = computed(() => {
         trigger: 'item',
         formatter: (par) => {
           const { name, value } = par.data
-          const title = `<div class="text-sm tracking-normal break-all whitespace-pre-wrap mb-2">${name.replace(/\n/g, '')}</div>`
+          const title = `<div class="text-sm tracking-normal break-all whitespace-pre-wrap mb-1">${name.replace(/\n/g, '')}</div>`
           return `${title}<strong class="text-base" style="color: ${par.color}">${value}%</strong>`
         }
       },

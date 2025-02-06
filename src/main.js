@@ -21,17 +21,22 @@ const routes = [
     component: () => import('./page/Home.vue')
   },
   {
-    path: "/charts",
-    name: "Charts",
-    component: () => import('./page/Charts.vue')
+    path: "/report",
+    name: "Report",
+    component: () => import('./page/Report.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    redirect: '/',
   }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/2025/test/'),
+  history: createWebHashHistory('/2025/anti-fraud/'),
   routes: routes,
   scrollBehavior(to, from, savedPosition) {
-    if (to.path === '/charts') {
+    if (to.path === '/report') {
       return { top: 0 }
     }
   },
