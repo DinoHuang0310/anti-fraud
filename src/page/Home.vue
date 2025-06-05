@@ -52,15 +52,10 @@
       </div>
     </div>
 
-    <div v-if="info.slider && info.slider.content.length" class="bg-white">
+    <div v-if="info.slider?.content?.length" class="bg-white">
       <div id="slider" class="container w-11/12 sm:w-full py-20">
         <Title>{{ info.slider.title }}</Title>
-        <BtSlider
-          :sliderData="info.slider.content"
-          :showNavigation="false"
-          showPagination
-          theme="outside-title"
-        />
+        <InfinityArticle />
       </div>
     </div>
 
@@ -85,7 +80,7 @@
       </div>
     </article>
 
-    <div v-if="info.news &&  info.news.content.length" id="card" class="container w-11/12 sm:w-full py-20">
+    <div v-if="info.news?.content?.length" id="card" class="container w-11/12 sm:w-full py-20">
       <Title>{{ info.news.title }}</Title>
       <BtSlider
         :sliderData="info.news.content"
@@ -113,6 +108,7 @@ import ChartType1 from '../components/charts/ChartType1.vue';
 
 import BtYouTubePlayer from '../components/BtYouTubePlayer/Player.vue'
 import BtSlider from '../components/BtSlider.vue';
+import InfinityArticle from '../components/InfinityArticle.vue';
 import BtFooter from '../components/BtFooter.vue';
 
 const { isDev } = useClientConfig()
