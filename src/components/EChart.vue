@@ -12,7 +12,7 @@
 <script setup>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { PieChart, BarChart } from "echarts/charts";
+import { PieChart, BarChart, LineChart } from "echarts/charts";
 // import "echarts";
 import {
   TitleComponent,
@@ -31,6 +31,8 @@ use([
   CanvasRenderer,
   PieChart,
   BarChart,
+  LineChart,
+
   TitleComponent,
   TooltipComponent,
   // ToolboxComponent,
@@ -45,6 +47,8 @@ const props = defineProps({
 })
 
 const chartSetter = computed(() => {
+  if (!props.chartOption?.series?.length) return props.chartOption
+  
   const isBarChart = props.chartOption.series[0].type === 'bar' && props.chartOption.series.length === 1;
   
   if (isBarChart) {

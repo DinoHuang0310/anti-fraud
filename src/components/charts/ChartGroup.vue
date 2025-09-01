@@ -42,7 +42,7 @@
     />
 
     <!-- pagination -->
-    <div class="h-8 mt-2 sm:mt-6">
+    <div v-if="sliderData.length > 1" class="h-8 mt-2 sm:mt-6">
       <div class="swiper-pagination" ref="paginationRef" />
     </div>
   </div>

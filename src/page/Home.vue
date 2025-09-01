@@ -33,6 +33,12 @@
       </div>
     </div>
 
+    <div v-if="!monthListError" class="container pt-20 w-11/12 max-w-[1024px]">
+      <div ref="infoChart" class="pt-6 bg-white rounded-lg sm:rounded-2xl">
+        <EChart class="aspect-[5/4] sm:aspect-video" :chartOption="chartData" />
+      </div>
+    </div>
+
     <div id="about" class="pt-20">
       <h1 class="text-2xl lg:text-3xl xl:text-4xl sm:text-center mb-6 sm:my-8 xl:leading-snug mx-auto w-11/12 max-w-screen-lg min-h-[1.375em]">
         2025 防詐新戰略
@@ -94,7 +100,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import moment from "moment";
 
 import useInfoData from '../composables/useInfoData';
@@ -104,37 +110,52 @@ import api from '../services/api';
 import BtNavbar from '../components/BtNavbar/Nav.vue';
 import Title from '../components/Title.vue';
 import Introduction from '../components/Introduction.vue';
+import EChart from '../components/EChart.vue';
 import ChartType1 from '../components/charts/ChartType1.vue';
 
 import BtYouTubePlayer from '../components/BtYouTubePlayer/Player.vue'
 import BtSlider from '../components/BtSlider.vue';
 import InfinityArticle from '../components/InfinityArticle.vue';
 import BtFooter from '../components/BtFooter.vue';
+import useWindowScroll from '../composables/useWindowScroll'
+import useClientSize from '../composables/useClientSize'
 
 const { isDev } = useClientConfig()
 const { info, menu } = useInfoData();
 
-const formatNumberToChinese = (number) => {
-  if (number < 1000000) return number.toLocaleString();
-  const billion = Math.floor(number / 100000000);
-  const million = (number % 100000000) / 10000;
+const formatNumberToChinese = (number, stringOnly) => {
+  if (number < 1_000_000) return number.toLocaleString();
+
+  const billion = Math.floor(number / 100_000_000);
+  const million = (number % 100_000_000) / 10_000;
+
   const formattedMillion = million.toLocaleString('zh-Hans', {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });
-  return billion > 0 ?
-    `${billion}<span class="text-lg">億</span> ${formattedMillion}<span class="text-lg">萬</span>` :
-    `${formattedMillion}<span class="text-lg">萬</span>`
-}
+
+  const hasMillion = formattedMillion !== '0.0';
+
+  // 抽出包裝函式
+  const wrap = (text) => stringOnly ? text : `<span class="text-lg">${text}</span>`;
+
+  const parts = [];
+
+  if (billion > 0) parts.push(`${billion}${wrap('億')}`);
+  if (hasMillion) parts.push(`${formattedMillion}${wrap('萬')}`);
+
+  return parts.join(' ');
+};
 
 const cases = ref(0);
 const amount = ref(0);
 const dataDate = ref('');
 const showDashboard = ref(true)
 
+const domainPath = `https://events-oauth${isDev ? '-hardy' : ''}.businesstoday.com.tw/api/Dashboard165`;
 const getDashboard = () => {
   const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
-  const target = `https://events-oauth${isDev ? '-hardy' : ''}.businesstoday.com.tw/api/Dashboard165/get/`
+  const target = `${domainPath}/get/`
   
   const removeMenuBtn = () => {
     menu.value = menu.value.filter(item => item.url !== '#dashboard')
@@ -142,8 +163,8 @@ const getDashboard = () => {
   api.get(target).then((res) => {
     try {
       const { TotalCases, TotalLosses, Date } = res
-      cases.value = TotalCases;
-      amount.value = TotalLosses * 10000;
+      cases.value = TotalCases * 1;
+      amount.value = TotalLosses * 10_000;
       const date = moment(Date, 'YYYY-MM-DD').add(1, 'days')
       dataDate.value = `${date.format('YYYY-MM-DD')} ${week[date.isoWeekday() - 1]}`
     } catch (error) {
@@ -157,6 +178,126 @@ const getDashboard = () => {
     removeMenuBtn()
   })
 }
-
 getDashboard()
+
+const infoChart = ref(null)
+const monthList = ref([]);
+const monthListError = ref(false)
+const getMonthList = () => {
+  const target = `${domainPath}/getMonthList/`
+  api.get(target).then((res) => {
+    if (Array.isArray(res)) {
+      monthList.value = res.slice(0, 10).reverse()
+    } else {
+      console.error(res)
+      monthListError.value = true
+    }
+  }).catch((error) => {
+    console.error(error)
+    monthListError.value = true
+  })
+}
+getMonthList();
+
+const { height, isMobile } = useClientSize()
+const chartData = ref({});
+const setChartData = () => {
+  if (!monthList.value.length && !monthListError.value) {
+    setTimeout(() => {
+      setChartData()
+    }, 1000);
+    return;
+  }
+  chartData.value = {
+    animationDuration: 2000,
+    grid: isMobile.value ? { top: 50, right: 45, bottom: 35, left: 25 } : null,
+    tooltip: {
+      trigger: 'axis',
+      formatter: (params) => {
+        return params.reduce((prev, current, index) => {
+          const { value } = current;
+          const html = `
+          <div class="mb-1">
+            <div class="flex items-center">
+              <span class="w-2 h-2 mr-1 rounded-full" style="background: ${current.color}"></span>
+              <span>${current.seriesName}:</span>
+            </div>
+            <div class="pl-3 font-bold">
+              ${index === 0 ?
+                value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 件' :
+                formatNumberToChinese(value, true) + ' 元'
+              }
+            </div>
+          </div>`
+          return prev += html
+        }, `<div class="mb-1">${params[0].axisValue}</div>`)
+      }
+    },
+    legend: { data: ['詐騙案件受理數', '財產損失金額'] },
+    xAxis: [{
+      type: 'category',
+      data: monthList.value.map(i => i.Month),
+      axisPointer: { type: 'shadow' }
+    }],
+    yAxis: [
+      {
+        type: 'value',
+        name: isMobile.value ? null : '詐騙案件受理數',
+        nameGap: 30,
+        axisLabel: isMobile.value ? null : {
+          fontSize: isMobile.value ? 10 : 12,
+          formatter: '{value}件'
+        }
+      },
+      {
+        type: 'value',
+        name: isMobile.value ? null : '財產損失金額',
+        nameGap: 30,
+        axisLabel: {
+          fontSize: isMobile.value ? 10 : 12,
+          formatter: (value) => `${formatNumberToChinese(value, true)}`
+        }
+      },
+    ],
+    series: [
+      {
+        name: '詐騙案件受理數',
+        type: 'line',
+        data: monthList.value.map(i => i.TotalCases),
+      },
+      {
+        name: '財產損失金額',
+        type: 'bar',
+        yAxisIndex: 1,
+        data: monthList.value.map((i, index) => {
+          const isLast = index === monthList.value.length - 1
+          const value = i.TotalLosses * 10_000
+          return isLast ? {value, itemStyle: { color: '#ff994d' }} : value
+        }),
+      },
+    ]
+  }
+}
+
+onMounted(() => {
+  const getOffsetTop = (elem) => {
+    let offsetTop = 0;
+    while (elem) {
+      offsetTop += elem.offsetTop;
+      elem = elem.offsetParent;
+    }
+    return offsetTop;
+  }
+  const trigger = getOffsetTop(infoChart.value)
+  const delay = isMobile.value ? 100 : 200
+  const { overY } = useWindowScroll(Math.max(trigger - height.value + delay, 1))
+
+  watch(overY, (bool) => {
+    if (bool) {
+      setChartData()
+    } else {
+      chartData.value = {}
+    }
+  })
+})
 </script>
