@@ -120,7 +120,7 @@ import BtFooter from '../components/BtFooter.vue';
 import useWindowScroll from '../composables/useWindowScroll'
 import useClientSize from '../composables/useClientSize'
 
-const { isDev } = useClientConfig()
+const { isWebtest } = useClientConfig()
 const { info, menu } = useInfoData();
 
 const formatNumberToChinese = (number, stringOnly) => {
@@ -152,7 +152,7 @@ const amount = ref(0);
 const dataDate = ref('');
 const showDashboard = ref(true)
 
-const domainPath = `https://events-oauth${isDev ? '-hardy' : ''}.businesstoday.com.tw/api/Dashboard165`;
+const domainPath = `https://events-oauth${isWebtest ? '-hardy' : ''}.businesstoday.com.tw/api/Dashboard165`;
 const getDashboard = () => {
   const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
   const target = `${domainPath}/get/`
@@ -187,7 +187,7 @@ const getMonthList = () => {
   const target = `${domainPath}/getMonthList/`
   api.get(target).then((res) => {
     if (Array.isArray(res)) {
-      monthList.value = res.slice(0, 10).reverse()
+      monthList.value = res.reverse()
     } else {
       console.error(res)
       monthListError.value = true
@@ -210,7 +210,7 @@ const setChartData = () => {
   }
   chartData.value = {
     animationDuration: 2000,
-    grid: isMobile.value ? { top: 50, right: 45, bottom: 35, left: 25 } : null,
+    grid: isMobile.value ? { top: 50, right: 45, bottom: 35, left: 50 } : null,
     tooltip: {
       trigger: 'axis',
       formatter: (params) => {
@@ -243,16 +243,23 @@ const setChartData = () => {
       {
         type: 'value',
         name: isMobile.value ? null : '詐騙案件受理數',
-        nameGap: 30,
-        axisLabel: isMobile.value ? null : {
+        splitNumber: 5,
+        min: 0,
+        max: 25000,
+        axisLabel: {
           fontSize: isMobile.value ? 10 : 12,
-          formatter: '{value}件'
-        }
+          formatter: (value) => {
+            if (value > 1000) {
+              return `${value / 1000}千件`
+            }
+            return value + '件'
+          }
+        },
       },
       {
         type: 'value',
         name: isMobile.value ? null : '財產損失金額',
-        nameGap: 30,
+        splitNumber: 5,
         axisLabel: {
           fontSize: isMobile.value ? 10 : 12,
           formatter: (value) => `${formatNumberToChinese(value, true)}`
